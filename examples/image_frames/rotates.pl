@@ -4,7 +4,7 @@ use CGI::Carp qw(fatalsToBrowser);
 use GD::FullRotate;
 print "Content-type:text/html\n\n";
 
-my $src =  newFromPng GD::Image("niitty.png");
+my $src =  newFromPng GD::Image("images/photo.png");
 my ($width,$height) = $src->getBounds();
 
 my $angle = 132;
@@ -12,7 +12,7 @@ my @color = (255,255,255);
 my $transparent = 1;
 my $image = new GD::FullRotate($src,$width,$height,$angle,$transparent,@color);
 
-my $file = "testif.png";
+my $file = "test.png";
 open OUT, '>:raw', $file or die $!;
 print OUT $image->png;
 close OUT;
