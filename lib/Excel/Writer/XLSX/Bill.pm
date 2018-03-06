@@ -12,7 +12,7 @@ use CGI::Carp qw(fatalsToBrowser);
 sub new {
 my ($self,$xlsx,$language,$font,$hsize,$csize,$ssize,$tsize,$image) = @_;
 my ($wb,$ws,$left,$right,$left_bold,$left_top,$center);
-my ($client,$head,$totals,$content_rows,$shape_3,$shape_short_3,$shape_wide);
+my ($client,$head,$totals,$content_rows,$shape_2,$shape_3,$shape_short_3,$shape_wide);
 $wb  = Excel::Writer::XLSX->new( $xlsx );
 $self = $wb->add_worksheet();
 # Add Page Styles of Invoice
@@ -57,6 +57,11 @@ if($language eq 'fi'){
 
 # Oikea ylärivi
 
+$shape_2 = $wb->add_shape(
+    type   => 'rect',
+    width  => 128,
+    height => 40, 
+);
 $shape_3 = $wb->add_shape(
     type   => 'rect',
     width  => 192,
@@ -64,7 +69,7 @@ $shape_3 = $wb->add_shape(
 );
 
 $self->merge_range( "F5:H5", '', $left );
-$self->insert_shape( 'F4', $shape_3,0,0 );
+$self->insert_shape( 'F4', $shape_2,0,0 );
 
 # Texts to top-right
 if($language eq 'fi'){
@@ -80,17 +85,17 @@ $shape_short_3 = $wb->add_shape(
     height => 40,
 );
 
-$self->merge_range( "I5:K5", '', $left );
-$self->insert_shape( 'I4', $shape_short_3,0,0 );
+$self->merge_range( "H5:J5", '', $left );
+$self->insert_shape( 'H4', $shape_short_3,0,0 );
 if($language eq 'fi'){
-    $self->write( 'I4', " Viivästyskorko", $left_top );
+    $self->write( 'H4', " Viivästyskorko", $left_top );
 }
 if($language eq 'en'){
-    $self->write( 'I4', " Late payment interest:", $left_top );
+    $self->write( 'H4', " Late payment interest:", $left_top );
 }
 #  Oikea toinen rivi
-$self->merge_range( "F7:H7", '', $left );
-$self->insert_shape( 'F6', $shape_3,0,0 );
+$self->merge_range( "F7:G7", '', $left );
+$self->insert_shape( 'F6', $shape_2,0,0 );
 if($language eq 'fi'){
     $self->write( 'F6', " Laskun numero", $left_top );
 }
@@ -98,18 +103,18 @@ if($language eq 'en'){
     $self->write( 'F6', " Invoice no:", $left_top );
 }
 
-$self->merge_range( "I7:K7", '', $left );
- $self->insert_shape( 'I6', $shape_short_3,0,0 );
+$self->merge_range( "H7:J7", '', $left );
+ $self->insert_shape( 'H6', $shape_short_3,0,0 );
 if($language eq 'fi'){
-    $self->write( 'I6', " Asiakkaan Y-tunnus", $left_top );
+    $self->write( 'H6', " Asiakkaan Y-tunnus", $left_top );
 }
 if($language eq 'en'){
-    $self->write( 'I6', " Business ID:", $left_top );
+    $self->write( 'H6', " Business ID:", $left_top );
 }
 
 # Oikea kolmas rivi
-$self->merge_range( "F9:H9", '', $left );
-$self->insert_shape( 'F8', $shape_3,0,0 );
+$self->merge_range( "F9:G9", '', $left );
+$self->insert_shape( 'F8', $shape_2,0,0 );
 if($language eq 'fi'){
     $self->write( 'F8', " Maksuehto", $left_top );
 }
@@ -117,18 +122,18 @@ if($language eq 'en'){
     $self->write( 'F8', " Payment terms:", $left_top );
 }
 
-$self->merge_range( "I9:K9", '', $left );
-$self->insert_shape( 'I8', $shape_short_3,0,0 );
+$self->merge_range( "H9:J9", '', $left );
+$self->insert_shape( 'H8', $shape_short_3,0,0 );
 if($language eq 'fi'){
-    $self->write( 'I8', " Viitteemme", $left_top );
+    $self->write( 'H8', " Viitteemme", $left_top );
 }
 if($language eq 'en'){
-    $self->write( 'I8', " Our reference:", $left_top );
+    $self->write( 'H8', " Our reference:", $left_top );
 }
 
 # Oikea neljäs rivi
-$self->merge_range( "F11:H11", '', $left );
-$self->insert_shape( 'F10', $shape_3,0,0 );
+$self->merge_range( "F11:G11", '', $left );
+$self->insert_shape( 'F10', $shape_2,0,0 );
 if($language eq 'fi'){
     $self->write( 'F10', " Eräpäivä", $left_top );
 }
@@ -136,22 +141,22 @@ if($language eq 'en'){
     $self->write( 'F10', " Due Date:", $left_top );
 }
 
-$self->merge_range( "I11:K11", '', $left );
-$self->insert_shape( 'I10', $shape_short_3,0,0 );
+$self->merge_range( "H11:J11", '', $left );
+$self->insert_shape( 'H10', $shape_short_3,0,0 );
 if($language eq 'fi'){
-    $self->write( 'I10', " Viitteenne", $left_top );
+    $self->write( 'H10', " Viitteenne", $left_top );
 }
 if($language eq 'en'){
-    $self->write( 'I10', " Your reference:", $left_top );
+    $self->write( 'H10', " Your reference:", $left_top );
 }
 
 # Oikea alin rivi
 my $shape = $wb->add_shape(
     type   => 'rect',
-    width  => 382,
+    width  => 318,
     height => 40,
 );
-$self->merge_range( "F13:K13", '', $left );
+$self->merge_range( "F13:J13", '', $left );
 
 $self->insert_shape( 'F12', $shape,0,0 );
 if($language eq 'fi'){
@@ -166,7 +171,7 @@ if($language eq 'en'){
 # Lisätietoja
 $shape_wide = $wb->add_shape(
     type   => 'rect',
-    width  => 702,
+    width  => 638,
     height => 41,
 );
 
@@ -207,7 +212,7 @@ $self->merge_range( "A16:K16", '', $left );
 
 my $shape_five = $wb->add_shape(
     type   => 'rect',
-    width  => 256,
+    width  => 192,
     height => 20,
 );
 
@@ -232,40 +237,40 @@ my $shape0b = $wb->add_shape(
     height => 20,
 );
 
-$self->insert_shape( 'E18', $shape0,0,0 );
+$self->insert_shape( 'D18', $shape0,0,0 );
 if($language eq 'fi'){
-    $self->write( 'E18', " Määrä", $center );
+    $self->write( 'D18', " Määrä", $center );
 }
 if($language eq 'en'){
-    $self->write( 'E18', " Qty", $center );
+    $self->write( 'D18', " Qty", $center );
+}
+
+
+$self->insert_shape( 'E18', $shape0,0,0 );
+if($language eq 'fi'){
+    $self->write( 'E18', " Yks", $center );
+}
+if($language eq 'en'){
+    $self->write( 'E18', " Sing.", $center );
 }
 
 
 $self->insert_shape( 'F18', $shape0,0,0 );
 if($language eq 'fi'){
-    $self->write( 'F18', " Yks", $center );
+    $self->write( 'F18', " A-hinta", $center );
 }
 if($language eq 'en'){
-    $self->write( 'F18', " Sing.", $center );
+    $self->write( 'F18', " A-price", $center );
 }
 
+$self->insert_shape( 'G18', $shape0b,0,0 );
 
-$self->insert_shape( 'G18', $shape0,0,0 );
+$self->merge_range( 'G18:H18', '',$totals );
 if($language eq 'fi'){
-    $self->write( 'G18', " A-hinta", $center );
+    $self->write( 'G18', " Alv 24%", $center );
 }
 if($language eq 'en'){
-    $self->write( 'G18', " A-price", $center );
-}
-
-$self->insert_shape( 'H18', $shape0b,0,0 );
-
-$self->merge_range( 'H18:I18', '',$totals );
-if($language eq 'fi'){
-    $self->write( 'H18', " Alv 24%", $center );
-}
-if($language eq 'en'){
-    $self->write( 'H18', " VAT 20%", $center );
+    $self->write( 'G18', " VAT 20%", $center );
 }
 
 my $shape9 = $wb->add_shape(
@@ -274,19 +279,19 @@ my $shape9 = $wb->add_shape(
     height => 20,
 );
 
-$self->insert_shape( 'J18', $shape9,0,0 );
-$self->merge_range( 'J18:K18', '',$center );
+$self->insert_shape( 'I18', $shape9,0,0 );
+$self->merge_range( 'I18:J18', '',$center );
 if($language eq 'fi'){
-    $self->write( 'J18', "Verollinen hinta ", $center );
+    $self->write( 'I18', "Verollinen hinta ", $center );
 }
 if($language eq 'en'){
-    $self->write( 'J18', "Price with tax ", $center );
+    $self->write( 'I18', "Price with tax ", $center );
 }
 
 
 my $shape_left = $wb->add_shape(
     type   => 'rect',
-    width  => 256,
+    width  => 192,
     height => 300,
 );
 
@@ -294,7 +299,7 @@ my $start = 19;
 my $i = 18;
 my $end = 33;
 for ( $i .. $end ){
-   $self->merge_range( "A$start:E$start", '', $left );
+   $self->merge_range( "A$start:C$start", '', $left );
    $self->write( 9, $i, " ", $left );
    $start++;
    $i++;
@@ -314,10 +319,10 @@ my $shape_narrow_128 = $wb->add_shape(
     height => 300,
 );
 
+$self->insert_shape( 'D19', $shape_narrow,0,0 );
 $self->insert_shape( 'E19', $shape_narrow,0,0 );
 $self->insert_shape( 'F19', $shape_narrow,0,0 );
-$self->insert_shape( 'G19', $shape_narrow,0,0 );
-$self->insert_shape( 'H19', $shape_narrow_128,0,0 );
+$self->insert_shape( 'G19', $shape_narrow_128,0,0 );
 
 my $start2 = 19;
 my $i = 18;
@@ -336,19 +341,19 @@ my $shape12 = $wb->add_shape(
     height => 300,
 );
 
-$self->insert_shape( 'J19', $shape12,0,0 );
+$self->insert_shape( 'I19', $shape12,0,0 );
 
 my $start2 = 19;
 my $i = 18;
 my $end2 = 33;
 for ( $i .. $end2 ){
-   $self->merge_range( "J$start2:K$start2", '', $content_rows );
+   $self->merge_range( "I$start2:J$start2", '', $content_rows );
    $self->write( 9, $i, " ", $content_rows);
    $start2++;
    $i++;
 }
 
-$self->merge_range( 'A35:I37', '', $totals );
+$self->merge_range( 'A35:H37', '', $totals );
 if($language eq 'fi'){
     $self->write( 'A35', "Veroton yhteensä EUR:\n ALV 24 % yhteensä EUR:\nMaksettava yhteensä EUR:", $totals );
 }
@@ -356,39 +361,46 @@ if($language eq 'en'){
     $self->write( 'A35', "Sub total €:\n VAT 24 % €:\nTotal €:", $totals );
 }
 
-$self->merge_range( 'J35:K35', '',$totals );
+$self->merge_range( 'I35:J35', '',$totals );
 $self->write( 'J35', " ",$totals );
-$self->merge_range( 'J36:K36', '',$totals );
+$self->merge_range( 'I36:J36', '',$totals );
 $self->write( 'J36', " ",$totals );
-$self->merge_range( 'J37:K37', '',$totals );
-$self->write( 'J37', " ",$totals );
-
+$self->merge_range( 'I37:J37', '',$totals );
+$self->write( 'I37', " ",$totals );
 
 my $shape13 = $wb->add_shape(
     type   => 'rect',
-    width  => 320,
+    width  => 256,
     height => 40,
 );
 my $shape14 = $wb->add_shape(
     type   => 'rect',
-    width  => 320,
+    width  => 256,
     height => 60,
 );
 
 $self->insert_shape( 'A39', $shape13,0,0 );
-$self->write( 'A39', " IBAN", $left_top );
-$self->write( 'A40', " FI23 12345678", $left_top );
+
+$self->merge_range( 'A39:D39', ' IBAN',$left_top );
+$self->merge_range( 'A40:D40', '',$left );
+$self->write( 'A40', " FI23 12345678", $left );
 
 $self->insert_shape( 'A41', $shape13,0,0 );
+
+$self->merge_range( 'A41:D41', '',$left_top );
+$self->merge_range( 'A42:D42', '',$left );
 if($language eq 'fi'){
     $self->write( 'A41', " Viitenumero", $left_top );
 }
 if($language eq 'en'){
     $self->write( 'A41', " Reference no:", $left_top );
 }
-$self->write( 'A42', " 12345678", $left_top );
+$self->write( 'A42', " 12345678", $left );
 
 
+$self->merge_range( 'A43:D43', '',$left_top );
+$self->merge_range( 'A44:D44', '',$left_top );
+$self->merge_range( 'A45:D45', '',$left_top );
 $self->insert_shape( 'A43', $shape14,0,0 );
 if($language eq 'fi'){
     $self->write( 'A43', " Yritys Oy", $left_top );
@@ -401,18 +413,24 @@ if($language eq 'en'){
     $self->write( 'A45', " 123456 City", $left_top );
 }
 
-$self->insert_shape( 'F39', $shape_3,0,0 );
-$self->write( 'F39', " BIC/Swift", $left_top );
-$self->write( 'F40', " OKOYFIHH", $left_top );
+$self->insert_shape( 'E39', $shape_3,0,0 );
 
-$self->insert_shape( 'I39', $shape_3,0,0 );
+$self->merge_range( 'E39:G39', '',$left_top );
+$self->merge_range( 'E40:G40', '',$left_top );
+$self->write( 'E39', " BIC/Swift", $left_top );
+$self->write( 'E40', " OKOYFIHH", $left_top );
+
+$self->insert_shape( 'H39', $shape_3,0,0 );
+
+$self->merge_range( 'H39:J39', '',$left_top );
+$self->merge_range( 'H40:J40', '',$left );
 if($language eq 'fi'){
-    $self->write( 'I39', " Eräpäivä", $left_top );
+    $self->write( 'H39', " Eräpäivä", $left_top );
 }
 if($language eq 'en'){
-    $self->write( 'I39', " Eräpäivä", $left_top );
+    $self->write( 'H39', " Eräpäivä", $left_top );
 }
-$self->write( 'I40', " 01.04.2019", $left_top );
+$self->write( 'H40', " 01.04.2019", $left_top );
 
 
 my $shape16 = $wb->add_shape(
@@ -421,32 +439,39 @@ my $shape16 = $wb->add_shape(
     height => 40,
 );
 
-$self->insert_shape( 'F41', $shape16,0,0 );
+$self->insert_shape( 'E41', $shape16,0,0 );
+
+$self->merge_range( 'E41:J41', '',$left_top );
+$self->merge_range( 'E42:J42', '',$left );
 if($language eq 'fi'){
-    $self->write( 'F41', " Yhteensä EUR", $left_top );
+    $self->write( 'E41', " Yhteensä EUR", $left_top );
 }
 if($language eq 'en'){
-    $self->write( 'F41', " Total €", $left_top );
+    $self->write( 'E41', " Total €", $left_top );
 }
-$self->write( 'F42', " 226.00", $left_top );
+$self->write( 'E42', " 226.00", $left_top );
 
 
-my $shape16 = $wb->add_shape(
+my $shape16b = $wb->add_shape(
     type   => 'rect',
     width  => 384,
     height => 60,   
 );
 
-$self->insert_shape( 'F43', $shape16,0,0 );
+$self->insert_shape( 'E43', $shape16b,0,0 );
+
+$self->merge_range( 'E43:J43', '',$left_top );
+$self->merge_range( 'E44:J44', '',$left_top );
+$self->merge_range( 'E45:J45', '',$left_top );
 if($language eq 'fi'){
-    $self->write( 'F43', " Y-tunnus: 12349910-2", $left_top );
-    $self->write( 'F44', " Puhelin: 123-1234478", $left_top );
-    $self->write( 'F45', " Sähköposti: me\@me.fi", $left_top );
+    $self->write( 'E43', " Y-tunnus: 12349910-2", $left_top );
+    $self->write( 'E44', " Puhelin: 123-1234478", $left_top );
+    $self->write( 'E45', " Sähköposti: me\@me.fi", $left_top );
 }
 if($language eq 'en'){
-    $self->write( 'F43', " Company ID: 12349910-2", $left_top );
-    $self->write( 'F44', " Telephone: 123-1234478", $left_top );
-    $self->write( 'F45', " Email: me\@me.fi", $left_top );
+    $self->write( 'E43', " Company ID: 12349910-2", $left_top );
+    $self->write( 'E44', " Telephone: 123-1234478", $left_top );
+    $self->write( 'E45', " Email: me\@me.fi", $left_top );
 }
 
   return $wb->close;
