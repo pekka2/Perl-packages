@@ -2,7 +2,6 @@
 use CGI;
 use CGI::Carp qw(fatalsToBrowser);
 use Data::Dumper;
-my $query = new CGI;
 
 print "Content-type:text/html\n\n";
 use strict;
