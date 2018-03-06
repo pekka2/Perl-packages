@@ -9,14 +9,15 @@ use strict;
 use warnings;
 use Excel::Writer::XLSX::Bill;
 
-# Create a new workbook and add a worksheet
-$file = 'invoice.xlsx';
+$file = 'invoice.xlsx'; # create to this file
+# language options are english, 'en' and finnish, 'fi'
 $language = 'en';
 $font = 'Arial Bold';
 $heading_font_size = 18;
 $content_font_size = 11;
 $small_font_size = 8;
 $totals_font_size = 13;
+# images size can be maxim about 175x35 pixels
 $image = '';
 my $workbook  = new Excel::Writer::XLSX::Bill($file,
 	                                          $language,
