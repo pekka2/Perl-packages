@@ -60,8 +60,7 @@ if($language eq 'fi'){
 $shape_3 = $wb->add_shape(
     type   => 'rect',
     width  => 192,
-    height => 40,
-    colour => '#0da939'
+    height => 40, 
 );
 
 $self->merge_range( "F5:H5", '', $left );
@@ -79,7 +78,6 @@ $shape_short_3 = $wb->add_shape(
     type   => 'rect',
     width  => 190,
     height => 40,
-    colour => '#0da939'
 );
 
 $self->merge_range( "I5:K5", '', $left );
@@ -152,7 +150,6 @@ my $shape = $wb->add_shape(
     type   => 'rect',
     width  => 382,
     height => 40,
-    colour => '#0da939'
 );
 $self->merge_range( "F13:K13", '', $left );
 
@@ -171,7 +168,6 @@ $shape_wide = $wb->add_shape(
     type   => 'rect',
     width  => 702,
     height => 41,
-    colour => '#0da939'
 );
 
 $self->insert_shape( 'A15', $shape_wide,0,0 );
@@ -213,7 +209,6 @@ my $shape_five = $wb->add_shape(
     type   => 'rect',
     width  => 256,
     height => 20,
-    colour => '#0da939'
 );
 
 $self->insert_shape( 'A18', $shape_five,0,0 );
@@ -229,14 +224,12 @@ my $shape0 = $wb->add_shape(
     type   => 'rect',
     width  => 64,
     height => 20,
-    colour => '#0da939'
 );
 
 my $shape0b = $wb->add_shape(
     type   => 'rect',
     width  => 128,
     height => 20,
-    colour => '#0da939'
 );
 
 $self->insert_shape( 'E18', $shape0,0,0 );
@@ -279,7 +272,6 @@ my $shape9 = $wb->add_shape(
     type   => 'rect',
     width  => 128,
     height => 20,
-    colour => '#0da939'
 );
 
 $self->insert_shape( 'J18', $shape9,0,0 );
@@ -296,7 +288,6 @@ my $shape_left = $wb->add_shape(
     type   => 'rect',
     width  => 256,
     height => 300,
-    colour => '#0da939'
 );
 
 my $start = 19;
@@ -315,13 +306,12 @@ my $shape_narrow = $wb->add_shape(
     type   => 'rect',
     width  => 64,
     height => 300,
-    colour => '#0da939'
+    
 );
 my $shape_narrow_128 = $wb->add_shape(
     type   => 'rect',
     width  => 128,
     height => 300,
-    colour => '#0da939'
 );
 
 $self->insert_shape( 'E19', $shape_narrow,0,0 );
@@ -344,7 +334,6 @@ my $shape12 = $wb->add_shape(
     type   => 'rect',
     width  => 128,
     height => 300,
-    colour => '#0da939'
 );
 
 $self->insert_shape( 'J19', $shape12,0,0 );
@@ -379,13 +368,11 @@ my $shape13 = $wb->add_shape(
     type   => 'rect',
     width  => 320,
     height => 40,
-    colour => '#0da939'
 );
 my $shape14 = $wb->add_shape(
     type   => 'rect',
     width  => 320,
     height => 60,
-    colour => '#0da939'
 );
 
 $self->insert_shape( 'A39', $shape13,0,0 );
@@ -432,7 +419,6 @@ my $shape16 = $wb->add_shape(
     type   => 'rect',
     width  => 384,
     height => 40,
-    colour => '#0da939'
 );
 
 $self->insert_shape( 'F41', $shape16,0,0 );
@@ -448,8 +434,7 @@ $self->write( 'F42', " 226.00", $left_top );
 my $shape16 = $wb->add_shape(
     type   => 'rect',
     width  => 384,
-    height => 60,
-    colour => '#0da939'
+    height => 60,   
 );
 
 $self->insert_shape( 'F43', $shape16,0,0 );
