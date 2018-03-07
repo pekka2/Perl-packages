@@ -212,7 +212,7 @@ $self->merge_range( "A16:K16", '', $left );
 
 my $shape_five = $wb->add_shape(
     type   => 'rect',
-    width  => 192,
+    width  => 256,
     height => 20,
 );
 
@@ -237,40 +237,39 @@ my $shape0b = $wb->add_shape(
     height => 20,
 );
 
-$self->insert_shape( 'D18', $shape0,0,0 );
-if($language eq 'fi'){
-    $self->write( 'D18', " Määrä", $center );
-}
-if($language eq 'en'){
-    $self->write( 'D18', " Qty", $center );
-}
-
-
 $self->insert_shape( 'E18', $shape0,0,0 );
 if($language eq 'fi'){
-    $self->write( 'E18', " Yks", $center );
+    $self->write( 'E18', " Määrä", $center );
 }
 if($language eq 'en'){
-    $self->write( 'E18', " Sing.", $center );
+    $self->write( 'E18', " Qty", $center );
 }
 
 
 $self->insert_shape( 'F18', $shape0,0,0 );
 if($language eq 'fi'){
-    $self->write( 'F18', " A-hinta", $center );
+    $self->write( 'F18', " Yks", $center );
 }
 if($language eq 'en'){
-    $self->write( 'F18', " A-price", $center );
+    $self->write( 'F18', " Sing.", $center );
 }
 
-$self->insert_shape( 'G18', $shape0b,0,0 );
 
-$self->merge_range( 'G18:H18', '',$totals );
+$self->insert_shape( 'G18', $shape0,0,0 );
 if($language eq 'fi'){
-    $self->write( 'G18', " Alv 24%", $center );
+    $self->write( 'G18', " A-hinta", $center );
 }
 if($language eq 'en'){
-    $self->write( 'G18', " VAT 20%", $center );
+    $self->write( 'G18', " A-price", $center );
+}
+
+$self->insert_shape( 'H18', $shape0,0,0 );
+
+if($language eq 'fi'){
+    $self->write( 'H18', " Alv %", $center );
+}
+if($language eq 'en'){
+    $self->write( 'H18', " VAT %", $center );
 }
 
 my $shape9 = $wb->add_shape(
@@ -291,7 +290,7 @@ if($language eq 'en'){
 
 my $shape_left = $wb->add_shape(
     type   => 'rect',
-    width  => 192,
+    width  => 256,
     height => 300,
 );
 
@@ -299,7 +298,7 @@ my $start = 19;
 my $i = 18;
 my $end = 33;
 for ( $i .. $end ){
-   $self->merge_range( "A$start:C$start", '', $left );
+   $self->merge_range( "A$start:D$start", '', $left );
    $self->write( 9, $i, " ", $left );
    $start++;
    $i++;
@@ -319,10 +318,11 @@ my $shape_narrow_128 = $wb->add_shape(
     height => 300,
 );
 
-$self->insert_shape( 'D19', $shape_narrow,0,0 );
 $self->insert_shape( 'E19', $shape_narrow,0,0 );
 $self->insert_shape( 'F19', $shape_narrow,0,0 );
-$self->insert_shape( 'G19', $shape_narrow_128,0,0 );
+$self->insert_shape( 'G19', $shape_narrow,0,0 );
+$self->insert_shape( 'H19', $shape_narrow,0,0 );
+$self->insert_shape( 'I19', $shape_narrow_128,0,0 );
 
 my $start2 = 19;
 my $i = 18;
@@ -355,10 +355,10 @@ for ( $i .. $end2 ){
 
 $self->merge_range( 'A35:H37', '', $totals );
 if($language eq 'fi'){
-    $self->write( 'A35', "Veroton yhteensä EUR:\n ALV 24 % yhteensä EUR:\nMaksettava yhteensä EUR:", $totals );
+    $self->write( 'A35', "Veroton yhteensä:\n ALV:\nMaksettava yhteensä EUR:", $totals );
 }
 if($language eq 'en'){
-    $self->write( 'A35', "Sub total €:\n VAT 24 % €:\nTotal €:", $totals );
+    $self->write( 'A35', "Sub total:\n VAT:\nTotal €:", $totals );
 }
 
 $self->merge_range( 'I35:J35', '',$totals );
