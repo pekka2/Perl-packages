@@ -795,7 +795,7 @@ if($language eq 'fi'){
 }
 if($language eq 'en'){
     $self->write( 'H64', "Payment information", $roost2 );
-    $self->write( 'H65', "Bank: Paypla", $left_normal );
+    $self->write( 'H65', "Bank: Paypal", $left_normal );
     $self->write( 'H66', "Email: john\@doe.com", $left_normal );
     $self->write( 'H67', "SWIFT/BIC: OKOYFIHH", $left_normal );
     $self->write( 'H68', "IBAN: FI89-566620", $left_normal );
