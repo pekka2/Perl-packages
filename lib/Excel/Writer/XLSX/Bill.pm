@@ -9,7 +9,7 @@ use utf8;
 use CGI;
 use CGI::Carp qw(fatalsToBrowser);
 
-sub new {
+sub simple {
 my ($self,$xlsx,$language,$font,$hsize,$csize,$ssize,$tsize,$image) = @_;
 my ($wb,$ws,$left,$right,$left_bold,$left_top,$center);
 my ($client,$head,$totals,$content_rows,$shape_2,$shape_3,$shape_short_3,$shape_wide);
@@ -477,4 +477,330 @@ if($language eq 'en'){
   return $wb->close;
 }
 
+sub flat {
+my ($self,$xlsx,$language,$image) = @_;
+my ($wb,$ws,$left,$left_normal,$right,$left_bold,$left_top,$roost,$roost2,$roost3);
+my ($client,$head,$totals,$content_rows);
+$wb  = Excel::Writer::XLSX->new( $xlsx );
+$self = $wb->add_worksheet();
+# Add Page Styles of Invoice
+# Normal text size to left or center
+$left = $wb->add_format( 'align' => 'left','font' => 'Arial Bold','size' => 11, 'bold' => 1);
+$left_normal = $wb->add_format( 'align' => 'left','font' => 'Arial Bold','size' => 10);
+$roost = $wb->add_format( 'align' => 'center','font' =>  'Arial Bold','size' => 11, 'bold' => 1,'bg_color' => '#e3e3e3');
+$roost3 = $wb->add_format('bg_color' => '#666666');
+$roost2 = $wb->add_format( 'align' => 'left','font' =>  'Arial Bold','size' => 11, 'bold' => 1, 'bg_color' => '#e3e3e3');
+$right = $wb->add_format( 'align' => 'right','font' =>  'Arial Bold','size' => 11, 'bold' => 1);
+# Big header text
+$head = $wb->add_format( 'align' => 'left','bold' => 1,'font' =>  'Arial Bold','size' => 18);
+# Normal text to row top
+$client = $wb->add_format( 'align' => 'left','valign' => 'top', 'bold' => 1,'font' =>  'Arial Bold','size' => 11 );
+# Total text style to right
+$totals = $wb->add_format('bold' => 1,'font' =>  'Arial Bold', 'size' => 12,'align' => 'right');
+# Bill content rows
+$content_rows = $wb->add_format( 'align' => 'left', 'font' => 'Arial Bold', 'align' => 'right', 'size' => 11);
+
+$self->merge_range( 'A1:E3', '', $left );
+if($image){
+  $self->insert_image( 0,0,$image,2,8 );
+} else {  
+   if($language eq 'en'){
+      $self->write( 0, 0, "Company Ltd", $head );
+   }
+   if($language eq 'fi'){
+      $self->write( 0, 0, "Yritys Oy", $head );
+   }
+}
+
+$self->merge_range( 'A4:E4', '', $left );
+
+$self->set_row( 2, 16, 0, 0, 0, 20 );
+$self->set_row( 4, 4, 0, 0, 0, 20 );
+$self->set_row( 6, 4, 0, 0, 0, 20 );
+$self->set_row( 8, 4, 0, 0, 0, 20 );
+$self->set_row( 10, 4, 0, 0, 0, 20 );
+$self->set_row( 12, 4, 0, 0, 0, 20 );
+$self->set_row( 14, 4, 0, 0, 0, 20 );
+$self->set_row( 16, 4, 0, 0, 0, 20 );
+$self->set_row( 18, 4, 0, 0, 0, 20 );
+$self->set_row( 20, 4, 0, 0, 0, 20 );
+$self->set_row( 22, 4, 0, 0, 0, 20 );
+$self->set_row( 24, 4, 0, 0, 0, 20 );
+$self->set_row( 26, 4, 0, 0, 0, 20 );
+$self->set_row( 28, 4, 0, 0, 0, 20 );
+$self->set_row( 30, 4, 0, 0, 0, 20 );
+$self->set_row( 32, 4, 0, 0, 0, 20 );
+$self->set_row( 34, 4, 0, 0, 0, 20 );
+$self->set_row( 36, 4, 0, 0, 0, 20 );
+$self->set_row( 38, 4, 0, 0, 0, 20 );
+$self->set_row( 40, 4, 0, 0, 0, 20 );
+$self->set_row( 42, 4, 0, 0, 0, 20 );
+$self->set_row( 44, 4, 0, 0, 0, 20 );
+$self->set_row( 46, 4, 0, 0, 0, 20 );
+$self->set_row( 48, 4, 0, 0, 0, 20 );
+$self->set_row( 50, 4, 0, 0, 0, 20 );
+$self->set_row( 52, 4, 0, 0, 0, 20 );
+$self->set_row( 54, 4, 0, 0, 0, 20 );
+$self->set_row( 56, 1, 0, 0, 0, 20 );
+$self->set_row( 58, 4, 0, 0, 0, 20 );
+$self->set_row( 60, 4, 0, 0, 0, 20 );
+
+$self->merge_range( 'A6:E6', '', $left );
+if($language eq 'en'){
+  $self->write( 3, 0, " Street 15\n 99100 City", $left );
+  $self->merge_range( 'F1:K2', '', $left );
+  $self->write( 0, 5, "Invoice", $head );
+}
+if($language eq 'fi'){
+  $self->write( 3, 0, " Ollilanojantie 15", $left );
+  $self->write( 5, 0, " 99100 Kittilä", $left );
+  $self->merge_range( 'F1:J2', '', $left );
+  $self->write( 0, 5, "LASKU", $head );
+}
+
+# Oikea ylärivi
+
+#  Oikea toinen rivi
+$self->merge_range( "F4:G4", '', $left );
+if($language eq 'fi'){
+    $self->write( 'F4', " Laskun numero", $left );
+}
+if($language eq 'en'){
+    $self->write( 'F4', " Invoice no:", $left );
+}
+
+$self->merge_range( 'H4:J4', '', $left_normal );
+# Texts to top-right
+$self->merge_range( "F6:G6", '', $left );
+if($language eq 'fi'){
+   $self->write( "F6", " Laskun päiväys:", $left );
+}
+if($language eq 'en'){
+   $self->write( "F6", " Invoice date:", $left );
+}
+$self->merge_range( 'H4:J4', '', $left_normal );
+$self->merge_range( "H6:J6", '', $left_normal );
+if($language eq 'fi'){
+    $self->write( 'F8', " Maksuaika:", $left );
+}
+if($language eq 'en'){
+    $self->write( 'F8', " Payment terms:", $left );
+}
+$self->merge_range( "H8:J8", '', $left_normal );
+# Oikea neljäs rivi
+$self->merge_range( "F10:G10", '', $left );
+if($language eq 'fi'){
+    $self->write( 'F10', " Eräpäivä:", $left );
+}
+if($language eq 'en'){
+    $self->write( 'F10', " Due Date:", $left );
+}
+$self->merge_range( "H10:J10", '', $left_normal );
+
+$self->merge_range( "F12:G12", '', $left );
+if($language eq 'fi'){
+    $self->write( 'F12', " Viivästyskorko:", $left );
+}
+if($language eq 'en'){
+    $self->write( 'F12', " Late payment interest:", $left );
+}
+$self->merge_range( "H12:J12", '', $left_normal );
+$self->merge_range( "F14:G14", '', $left );
+if($language eq 'fi'){
+    $self->write( 'F14', " Viitenumero:", $left );
+}
+if($language eq 'en'){
+    $self->write( 'F14', " Our reference:", $left );
+}
+$self->merge_range( "H14:J14", '', $left_normal );
+
+$self->merge_range( "F16:G16", '', $left );
+if($language eq 'fi'){
+    $self->write( 'F16', " Asiakasnumero:", $left );
+}
+if($language eq 'en'){
+    $self->write( 'F16', " Business ID:", $left );
+}
+$self->merge_range( "H16:J16", '', $left_normal );
+
+
+# Lisätietoja
+
+if($language eq 'fi'){
+    $self->write( 'A18', " Lisätietoja:", $left );
+}
+if($language eq 'en'){
+    $self->write( 'A18', " More information:", $left );
+}
+
+
+$self->merge_range( "A10:E10", '', $client );
+
+# Asikastiedot
+if($language eq 'fi'){
+    $self->write( 'A10', " Asiakkaan Yritys Oy", $client );
+}
+if($language eq 'en'){
+    $self->write( 'A10', " Customer Company Ltd", $client );
+}
+
+$self->merge_range( "A12:E12", '', $left );
+if($language eq 'fi'){
+    $self->write( 'A12', " Asiakkaantie 10", $left );
+}
+if($language eq 'en'){
+    $self->write( 'A12', " Street 12", $left );
+}
+$self->merge_range( "A14:E14", '', $left );
+$self->write( 'A14', " 123456 City", $left );
+
+
+$self->merge_range( "A16:J16", '', $left );
+
+$self->merge_range( 'A20:D20', '', $roost2 );
+if($language eq 'fi'){
+    $self->write( 'A20', " Selite", $roost2 );
+}
+if($language eq 'en'){
+    $self->write( 'A20', " Title", $roost2 );
+}
+if($language eq 'fi'){
+    $self->write( 'E20', " Määrä", $roost );
+}
+if($language eq 'en'){
+    $self->write( 'E20', " Qty", $roost );
+}
+
+if($language eq 'fi'){
+    $self->write( 'F20', " Yks", $roost );
+}
+if($language eq 'en'){
+    $self->write( 'F20', " Sing.", $$roost );
+}
+
+
+if($language eq 'fi'){
+    $self->write( 'G20', " A-hinta", $roost );
+}
+if($language eq 'en'){
+    $self->write( 'G20', " A-price", $roost );
+}
+
+if($language eq 'fi'){
+    $self->write( 'H20', " Alv %", $roost );
+}
+if($language eq 'en'){
+    $self->write( 'H20', " VAT %", $roost );
+}
+
+$self->merge_range( 'I20:J20', '', $roost );
+if($language eq 'fi'){
+    $self->write( 'I20', "Verollinen hinta ", $roost );
+}
+if($language eq 'en'){
+    $self->write( 'I120', "Price with tax ", $roost );
+}
+
+my $start = 21;
+my $i = 20;
+my $end = 61;
+for ( $i .. $end ){
+   $self->merge_range( "A$start:D$start", '', $left );
+   $self->write( 9, $i, " ", $left );
+   $start++;
+   $i++;
+}
+
+my $start2 = 21;
+my $i = 20;
+my $end2 = 61;
+for ( $i .. $end2 ){
+   $self->merge_range( "I$start2:J$start2", '', $content_rows );
+   $self->write( 9, $i, " ", $content_rows);
+   $start2++;
+   $i++;
+}
+
+$self->merge_range( 'A57:J57', '', $roost3 );
+$self->merge_range( 'A58:H58', '', $totals );
+$self->merge_range( 'A60:H60', '', $totals );
+$self->merge_range( 'A62:H62', '', $totals );
+
+if($language eq 'fi'){
+    $self->write( 'A58', "Veroton yhteensä:", $totals );
+    $self->write( 'A60', "ALV:", $totals );
+    $self->write( 'A62', "Maksettava yhteensä EUR:", $totals );
+}
+if($language eq 'en'){
+    $self->write( 'A58', "Sub total:", $totals );
+    $self->write( 'A60', "VAT:", $totals );
+    $self->write( 'A62', "STotal €:", $totals );
+}
+
+$self->merge_range( 'A64:D64', '',$roost2 );
+$self->merge_range( 'A65:D65', '',$left_normal );
+$self->merge_range( 'A66:D66', '',$left_normal );
+$self->merge_range( 'A67:D67', '',$left_normal );
+$self->merge_range( 'A68:D68', '',$left_normal );
+if($language eq 'fi'){
+    $self->write( 'A64', " Yritys", $roost2 );
+    $self->write( 'A65', " Yritys Oy", $left_normal );
+    $self->write( 'A66', " Osoite", $left_normal );
+    $self->write( 'A67', " 123456 Paikkakunta", $left_normal );
+    $self->write( 'A68', " Finland", $left_normal );
+    $self->write( 'A69', " Company ID:12-345678", $left_normal );
+}
+if($language eq 'en'){
+    $self->write( 'A64', " Company", $left );
+    $self->write( 'A65', " Company Ltd", $left );
+    $self->write( 'A66', " Street 10", $left_normal );
+    $self->write( 'A67', " 123456 City", $left_normal );
+    $self->write( 'A68', " Finland", $left_normal );
+    $self->write( 'A69', " Company ID:12-345678", $left_normal );
+}
+
+$self->merge_range( 'E64:G64', '',$left );
+$self->merge_range( 'E65:G65', '',$left );
+$self->merge_range( 'E66:G66', '',$left );
+$self->merge_range( 'E67:G67', '',$left );
+$self->merge_range( 'E68:G68', '',$left );
+$self->merge_range( 'E69:G69', '',$left );
+
+if($language eq 'fi'){
+    $self->write( 'E64', " Yhteystiedot", $roost2 );
+    $self->write( 'E65', " Ville Virtanen", $left_normal );
+    $self->write( 'E66', " ville\@virtanen.fi", $left_normal );
+    $self->write( 'E67', " www.ville-virtanen.fi", $left_normal );
+}
+if($language eq 'en'){
+    $self->write( 'E64', " Contact information", $roost2 );
+    $self->write( 'E65', " John Doe", $left_normal );
+    $self->write( 'E66', " john\@doe.com", $left_normal );
+    $self->write( 'E67', " www.john-doe.cpm", $left_normal );
+}
+
+
+$self->merge_range( 'H64:J64', '',$left );
+$self->merge_range( 'H65:J65', '',$left );
+$self->merge_range( 'H66:J66', '',$left );
+$self->merge_range( 'H67:J67', '',$left );
+$self->merge_range( 'H68:J68', '',$left );
+$self->merge_range( 'H69:J69', '',$left );
+if($language eq 'fi'){
+    $self->write( 'H64', "Maksuehdot", $roost2 );
+    $self->write( 'H65', "Pankki: Osuusoankki, Paypal", $left_normal );
+    $self->write( 'H66', "ville\@virtanen.fi", $left_normal );
+    $self->write( 'H67', "SWIFT/BIC: OKOYFIHH", $left_normal );
+    $self->write( 'H68', "IBAN: FI89-566620", $left_normal );
+}
+if($language eq 'en'){
+    $self->write( 'H64', "Payment information", $roost2 );
+    $self->write( 'H65', "Bank: Paypla", $left_normal );
+    $self->write( 'H66', "Email: john\@doe.com", $left_normal );
+    $self->write( 'H67', "SWIFT/BIC: OKOYFIHH", $left_normal );
+    $self->write( 'H68', "IBAN: FI89-566620", $left_normal );
+}
+
+  return $wb->close;
+}
 __END__
