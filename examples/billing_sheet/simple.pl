@@ -18,7 +18,7 @@ my $small_font_size = 8;
 my $totals_font_size = 13;
 # image max size can be about 235x40 pixels
 my $image = '';
-my $workbook  = new Excel::Writer::XLSX::Bill($file,
+my $workbook  = Excel::Writer::XLSX::Bill->simple($file,
 	                                          $language,
 	                                          $font,
 	                                          $heading_font_size,
