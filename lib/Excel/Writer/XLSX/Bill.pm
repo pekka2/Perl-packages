@@ -574,67 +574,83 @@ if($language eq 'fi'){
 # Oikea ylärivi
 
 #  Oikea toinen rivi
-$self->merge_range( "F4:G4", '', $left );
+
+
 if($language eq 'fi'){
+    $self->merge_range( "F4:G4", '', $left );
+    $self->merge_range( 'H4:J4', '', $left_normal );
     $self->write( 'F4', " Laskun numero", $left );
 }
 if($language eq 'en'){
+    $self->merge_range( "F4:H4", '', $left );
+    $self->merge_range( 'I4:J4', '', $left_normal );
     $self->write( 'F4', " Invoice no:", $left );
 }
 
-$self->merge_range( 'H4:J4', '', $left_normal );
 # Texts to top-right
-$self->merge_range( "F6:G6", '', $left );
 if($language eq 'fi'){
+   $self->merge_range( "F6:G6", '', $left );
+   $self->merge_range( 'H6:J6', '', $left_normal );
    $self->write( "F6", " Laskun päiväys:", $left );
 }
 if($language eq 'en'){
+   $self->merge_range( "F6:H6", '', $left );
+   $self->merge_range( "I6:J6", '', $left_normal );
    $self->write( "F6", " Invoice date:", $left );
 }
-$self->merge_range( 'H4:J4', '', $left_normal );
-$self->merge_range( "H6:J6", '', $left_normal );
 if($language eq 'fi'){
+    $self->merge_range( "F8:G8", '', $left );
+    $self->merge_range( "H8:J8", '', $left_normal );
     $self->write( 'F8', " Maksuaika:", $left );
 }
 if($language eq 'en'){
+    $self->merge_range( "F8:H8", '', $left );
+    $self->merge_range( "I8:J8", '', $left_normal );
     $self->write( 'F8', " Payment terms:", $left );
 }
-$self->merge_range( "H8:J8", '', $left_normal );
 # Oikea neljäs rivi
-$self->merge_range( "F10:G10", '', $left );
 if($language eq 'fi'){
+    $self->merge_range( "F10:G10", '', $left );
+    $self->merge_range( "H10:J10", '', $left_normal );
     $self->write( 'F10', " Eräpäivä:", $left );
 }
 if($language eq 'en'){
+    $self->merge_range( "F10:H10", '', $left );
+    $self->merge_range( "i10:J10", '', $left_normal );
     $self->write( 'F10', " Due Date:", $left );
 }
-$self->merge_range( "H10:J10", '', $left_normal );
 
-$self->merge_range( "F12:G12", '', $left );
 if($language eq 'fi'){
+    $self->merge_range( "F12:G12", '', $left );
+    $self->merge_range( "H12:J12", '', $left_normal );
     $self->write( 'F12', " Viivästyskorko:", $left );
 }
 if($language eq 'en'){
+    $self->merge_range( "F12:H12", '', $left );
+    $self->merge_range( "I12:J12", '', $left_normal );
     $self->write( 'F12', " Late payment interest:", $left );
 }
-$self->merge_range( "H12:J12", '', $left_normal );
-$self->merge_range( "F14:G14", '', $left );
 if($language eq 'fi'){
+    $self->merge_range( "F14:G14", '', $left );
+    $self->merge_range( "H14:J14", '', $left_normal );
     $self->write( 'F14', " Viitenumero:", $left );
 }
 if($language eq 'en'){
+    $self->merge_range( "F14:H14", '', $left );
+    $self->merge_range( "I14:J14", '', $left_normal );
     $self->write( 'F14', " Reference number:", $left );
 }
-$self->merge_range( "H14:J14", '', $left_normal );
 
-$self->merge_range( "F16:G16", '', $left );
 if($language eq 'fi'){
+    $self->merge_range( "F16:G16", '', $left );
+    $self->merge_range( "H16:J16", '', $left_normal );
     $self->write( 'F16', " Asiakasnumero:", $left );
 }
 if($language eq 'en'){
-    $self->write( 'F16', " Business ID:", $left );
+    $self->merge_range( "F16:H16", '', $left );
+    $self->merge_range( "I16:J16", '', $left_normal );
+    $self->write( 'F16', " Client ID:", $left );
 }
-$self->merge_range( "H16:J16", '', $left_normal );
 
 $self->merge_range( "A10:E10", '', $client );
 
