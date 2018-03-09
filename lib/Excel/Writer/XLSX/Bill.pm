@@ -636,17 +636,6 @@ if($language eq 'en'){
 }
 $self->merge_range( "H16:J16", '', $left_normal );
 
-
-# Lisätietoja
-
-if($language eq 'fi'){
-    $self->write( 'A18', " Lisätietoja:", $left );
-}
-if($language eq 'en'){
-    $self->write( 'A18', " More information:", $left );
-}
-
-
 $self->merge_range( "A10:E10", '', $client );
 
 # Asikastiedot
@@ -666,7 +655,6 @@ if($language eq 'en'){
 }
 $self->merge_range( "A14:E14", '', $left );
 $self->write( 'A14', " 123456 City", $left );
-
 
 $self->merge_range( "A16:J16", '', $left );
 
@@ -690,7 +678,6 @@ if($language eq 'fi'){
 if($language eq 'en'){
     $self->write( 'F20', " Sing", $roost );
 }
-
 
 if($language eq 'fi'){
     $self->write( 'G20', " A-hinta", $roost );
@@ -747,7 +734,7 @@ if($language eq 'fi'){
 if($language eq 'en'){
     $self->write( 'A58', "Sub total:", $totals );
     $self->write( 'A60', "VAT:", $totals );
-    $self->write( 'A62', "STotal €:", $totals );
+    $self->write( 'A62', "Total €:", $totals );
 }
 
 $self->merge_range( 'A64:D64', '',$roost2 );
@@ -755,6 +742,7 @@ $self->merge_range( 'A65:D65', '',$left_normal );
 $self->merge_range( 'A66:D66', '',$left_normal );
 $self->merge_range( 'A67:D67', '',$left_normal );
 $self->merge_range( 'A68:D68', '',$left_normal );
+
 if($language eq 'fi'){
     $self->write( 'A64', " Yritys", $roost2 );
     $self->write( 'A65', " Yritys Oy", $left_normal );
@@ -773,11 +761,11 @@ if($language eq 'en'){
 }
 
 $self->merge_range( 'E64:G64', '',$left );
-$self->merge_range( 'E65:G65', '',$left );
-$self->merge_range( 'E66:G66', '',$left );
-$self->merge_range( 'E67:G67', '',$left );
-$self->merge_range( 'E68:G68', '',$left );
-$self->merge_range( 'E69:G69', '',$left );
+$self->merge_range( 'E65:G65', '',$left_normal );
+$self->merge_range( 'E66:G66', '',$left_normal );
+$self->merge_range( 'E67:G67', '',$left_normal );
+$self->merge_range( 'E68:G68', '',$left_normal );
+$self->merge_range( 'E69:G69', '',$left_normal );
 
 if($language eq 'fi'){
     $self->write( 'E64', " Yhteystiedot", $roost2 );
@@ -792,19 +780,23 @@ if($language eq 'en'){
     $self->write( 'E67', " www.john-doe.cpm", $left_normal );
 }
 
-
 $self->merge_range( 'H64:J64', '',$left );
-$self->merge_range( 'H65:J65', '',$left );
-$self->merge_range( 'H66:J66', '',$left );
-$self->merge_range( 'H67:J67', '',$left );
-$self->merge_range( 'H68:J68', '',$left );
-$self->merge_range( 'H69:J69', '',$left );
+$self->merge_range( 'H65:J65', '',$left_normal );
+$self->merge_range( 'H66:J66', '',$left_normal );
+$self->merge_range( 'H67:J67', '',$left_normal );
+$self->merge_range( 'H68:J68', '',$left_normal );
+$self->merge_range( 'H69:J69', '',$left_normal );
+
+my $right_small = $wb->add_format( 'align' => 'right','font' => 'Arial Bold','size' => 7.8);
+$self->merge_range( 'A70:J70', '', $right_small );
+
 if($language eq 'fi'){
     $self->write( 'H64', "Maksuehdot", $roost2 );
     $self->write( 'H65', "Pankki: Osuusoankki, Paypal", $left_normal );
     $self->write( 'H66', "ville\@virtanen.fi", $left_normal );
     $self->write( 'H67', "SWIFT/BIC: OKOYFIHH", $left_normal );
     $self->write( 'H68', "IBAN: FI89-566620", $left_normal );
+    $self->write( 'A70', "Laskutuspohja: github.com/pekka2/Perl-packages", $right_small );
 }
 if($language eq 'en'){
     $self->write( 'H64', "Payment information", $roost2 );
@@ -812,6 +804,7 @@ if($language eq 'en'){
     $self->write( 'H66', "Email: john\@doe.com", $left_normal );
     $self->write( 'H67', "SWIFT/BIC: OKOYFIHH", $left_normal );
     $self->write( 'H68', "IBAN: FI89-566620", $left_normal );
+    $self->write( 'A70', "Billing the ground: github.com/pekka2/Perl-packages", $right_small );
 }
 
   return $wb->close;
