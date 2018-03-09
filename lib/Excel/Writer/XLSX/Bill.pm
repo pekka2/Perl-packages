@@ -623,7 +623,7 @@ if($language eq 'fi'){
     $self->write( 'F14', " Viitenumero:", $left );
 }
 if($language eq 'en'){
-    $self->write( 'F14', " Our reference:", $left );
+    $self->write( 'F14', " Reference number:", $left );
 }
 $self->merge_range( "H14:J14", '', $left_normal );
 
@@ -688,7 +688,7 @@ if($language eq 'fi'){
     $self->write( 'F20', " Yks", $roost );
 }
 if($language eq 'en'){
-    $self->write( 'F20', " Sing.", $$roost );
+    $self->write( 'F20', " Sing", $roost );
 }
 
 
