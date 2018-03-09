@@ -793,7 +793,7 @@ if($language eq 'en'){
     $self->write( 'E64', " Contact information", $roost2 );
     $self->write( 'E65', " John Doe", $left_normal );
     $self->write( 'E66', " john\@doe.com", $left_normal );
-    $self->write( 'E67', " www.john-doe.cpm", $left_normal );
+    $self->write( 'E67', " www.john-doe.com", $left_normal );
 }
 
 $self->merge_range( 'H64:J64', '',$left );
