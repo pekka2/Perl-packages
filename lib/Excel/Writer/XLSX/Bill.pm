@@ -31,26 +31,29 @@ $totals = $wb->add_format('bold' => 1,'font' => $font, 'size' => $tsize,'align' 
 # Bill content rows
 $content_rows = $wb->add_format( 'align' => 'left', 'font' => $font, 'align' => 'right', 'size' => $csize);
 
-$self->merge_range( 'A1:E3', '', $left );
 if($image){
+  $self->merge_range( 'A1:E4', '', $left );
   $self->insert_image( 0,0,$image,2,8 );
 } else {	
+   $self->merge_range( 'A1:E3', '', $left );
    if($language eq 'en'){
       $self->write( 0, 0, "Company Ltd", $head );
+      $self->write( 3, 0, "Street 15", $left );
+      $self->write( 4, 0, "99100 City", $left );
    }
    if($language eq 'fi'){
       $self->write( 0, 0, "Yritys Oy", $head );
+      $self->write( 3, 0, "Ollilanojantie 15", $left );
+      $self->write( 4, 0, "99100 Kittilä", $left );
    }
 }
 
 $self->merge_range( 'A4:E5', '', $left );
 if($language eq 'en'){
-  $self->write( 3, 0, " Street 15\n 99100 City", $left );
   $self->merge_range( 'F1:K2', '', $left );
   $self->write( 0, 5, "Invoice", $head );
 }
 if($language eq 'fi'){
-  $self->write( 3, 0, " Ollilanojantie 15\n 99100 Kittilä", $left );
   $self->merge_range( 'F1:K2', '', $left );
   $self->write( 0, 5, "LASKU", $head );
 }
@@ -500,16 +503,30 @@ $totals = $wb->add_format('bold' => 1,'font' =>  'Arial Bold', 'size' => 12,'ali
 # Bill content rows
 $content_rows = $wb->add_format( 'align' => 'left', 'font' => 'Arial Bold', 'align' => 'right', 'size' => 11);
 
-$self->merge_range( 'A1:E3', '', $left );
 if($image){
+  $self->merge_range( 'A1:E6', '', $left );
   $self->insert_image( 0,0,$image,2,8 );
 } else {  
+    $self->merge_range( 'A1:E3', '', $left );
    if($language eq 'en'){
       $self->write( 0, 0, "Company Ltd", $head );
+      $self->write( 3, 0, " Street 15", $left );
+      $self->write( 5, 0, " 99100 City", $left );
    }
    if($language eq 'fi'){
       $self->write( 0, 0, "Yritys Oy", $head );
+      $self->write( 3, 0, " Ollilanojantie 15", $left );
+      $self->write( 5, 0, " 99100 Kittilä", $left );
    }
+$self->merge_range( 'A6:E6', '', $left );
+if($language eq 'en'){
+  $self->merge_range( 'F1:K2', '', $left );
+  $self->write( 0, 5, "Invoice", $head );
+}
+if($language eq 'fi'){
+  $self->merge_range( 'F1:J2', '', $left );
+  $self->write( 0, 5, "LASKU", $head );
+}
 }
 
 $self->merge_range( 'A4:E4', '', $left );
@@ -546,15 +563,11 @@ $self->set_row( 58, 4, 0, 0, 0, 20 );
 $self->set_row( 60, 4, 0, 0, 0, 20 );
 
 $self->merge_range( 'A6:E6', '', $left );
+$self->merge_range( 'F1:J2', '', $left );
 if($language eq 'en'){
-  $self->write( 3, 0, " Street 15\n 99100 City", $left );
-  $self->merge_range( 'F1:K2', '', $left );
   $self->write( 0, 5, "Invoice", $head );
 }
 if($language eq 'fi'){
-  $self->write( 3, 0, " Ollilanojantie 15", $left );
-  $self->write( 5, 0, " 99100 Kittilä", $left );
-  $self->merge_range( 'F1:J2', '', $left );
   $self->write( 0, 5, "LASKU", $head );
 }
 
@@ -795,7 +808,7 @@ if($language eq 'fi'){
 }
 if($language eq 'en'){
     $self->write( 'H64', "Payment information", $roost2 );
-    $self->write( 'H65', "Bank: Paypal", $left_normal );
+    $self->write( 'H65', "Bank: Paypla", $left_normal );
     $self->write( 'H66', "Email: john\@doe.com", $left_normal );
     $self->write( 'H67', "SWIFT/BIC: OKOYFIHH", $left_normal );
     $self->write( 'H68', "IBAN: FI89-566620", $left_normal );
