@@ -550,6 +550,7 @@ $self->set_row( 60, 4, 0, 0, 0, 20 );
 
 $invoice->set_locked( 1 ); 
 $self->merge_range( 'A6:E6', '', $left );
+$self->merge_range( 'F1:J2', '', $left );
 if($language eq 'en'){
   $self->merge_range( 'F1:K2', '', $invoice );
   $self->write( 0, 5, "Invoice", $invoice );
