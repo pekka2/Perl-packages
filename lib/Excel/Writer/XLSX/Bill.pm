@@ -186,7 +186,6 @@ if($language eq 'en'){
     $self->write( 'A15', " More information:", $left_top );
 }
 
-
 $self->merge_range( "A7:E7", '', $client );
 
 # Asikastiedot
@@ -210,7 +209,6 @@ $self->write( 'A10', " 123456 City", $left );
 $self->merge_range( "A11:E11", '', $left );
 $self->merge_range( "A12:E12", '', $left );
 
-
 $self->merge_range( "A16:K16", '', $left );
 
 my $shape_five = $wb->add_shape(
@@ -226,7 +224,6 @@ if($language eq 'fi'){
 if($language eq 'en'){
     $self->write( 'A18', " Title", $left );
 }
-
 
 my $shape0 = $wb->add_shape(
     type   => 'rect',
@@ -248,7 +245,6 @@ if($language eq 'en'){
     $self->write( 'E18', " Qty", $center );
 }
 
-
 $self->insert_shape( 'F18', $shape0,0,0 );
 if($language eq 'fi'){
     $self->write( 'F18', " Yks", $center );
@@ -256,7 +252,6 @@ if($language eq 'fi'){
 if($language eq 'en'){
     $self->write( 'F18', " Sing.", $center );
 }
-
 
 $self->insert_shape( 'G18', $shape0,0,0 );
 if($language eq 'fi'){
@@ -289,7 +284,6 @@ if($language eq 'fi'){
 if($language eq 'en'){
     $self->write( 'I18', "Price with tax ", $center );
 }
-
 
 my $shape_left = $wb->add_shape(
     type   => 'rect',
@@ -400,7 +394,6 @@ if($language eq 'en'){
 }
 $self->write( 'A42', " 12345678", $left );
 
-
 $self->merge_range( 'A43:D43', '',$left_top );
 $self->merge_range( 'A44:D44', '',$left_top );
 $self->merge_range( 'A45:D45', '',$left_top );
@@ -434,7 +427,6 @@ if($language eq 'en'){
     $self->write( 'H39', " Eräpäivä", $left_top );
 }
 $self->write( 'H40', " 01.04.2019", $left_top );
-
 
 my $shape16 = $wb->add_shape(
     type   => 'rect',
@@ -669,7 +661,6 @@ $self->merge_range( "A14:E14", '', $left );
 $self->write( 'A14', " 123456 City", $left );
 
 $self->merge_range( "A16:J16", '', $left );
-
 
 if($language eq 'fi'){
    $self->merge_range( 'A20:D20', ' Selite', $roost2 );
