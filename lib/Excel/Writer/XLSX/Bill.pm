@@ -522,16 +522,6 @@ if($image){
       $self->write( 3, 0, " Ollilanojantie 15", $left );
       $self->write( 5, 0, " 99100 Kittilä", $left );
    }
-$invoice->set_locked( 1 ); 
-$self->merge_range( 'A6:E6', '', $left );
-if($language eq 'en'){
-  $self->merge_range( 'F1:K2', '', $invoice );
-  $self->write( 0, 5, "Invoice", $invoice );
-}
-if($language eq 'fi'){
-  $self->merge_range( 'F1:J2', '', $invoice );
-  $self->write( 0, 5, "LASKU", $invoice );
-}
 }
 
 $self->merge_range( 'A4:E4', '', $left );
@@ -567,6 +557,16 @@ $self->set_row( 56, 1, 0, 0, 0, 20 );
 $self->set_row( 58, 4, 0, 0, 0, 20 );
 $self->set_row( 60, 4, 0, 0, 0, 20 );
 
+$invoice->set_locked( 1 ); 
+$self->merge_range( 'A6:E6', '', $left );
+if($language eq 'en'){
+  $self->merge_range( 'F1:K2', '', $invoice );
+  $self->write( 0, 5, "Invoice", $invoice );
+}
+if($language eq 'fi'){
+  $self->merge_range( 'F1:J2', '', $invoice );
+  $self->write( 0, 5, "LASKU", $invoice );
+}
 # Oikea ylärivi
 
 $left_normal->set_locked( 0 ); 
