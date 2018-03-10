@@ -446,7 +446,6 @@ if($language eq 'en'){
 }
 $self->write( 'E42', " 226.00", $left_top );
 
-
 my $shape16b = $wb->add_shape(
     type   => 'rect',
     width  => 384,
