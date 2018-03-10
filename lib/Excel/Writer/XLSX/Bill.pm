@@ -483,12 +483,14 @@ if($language eq 'en'){
 sub flat {
 my ($self,$xlsx,$language,$image) = @_;
 my ($wb,$ws,$left,$left_normal,$right,$left_bold,$left_top,$roost,$roost2,$roost3);
-my ($client,$head,$totals,$content_rows);
+my ($client,$head,$invoice,$totals,$content_rows);
 $wb  = Excel::Writer::XLSX->new( $xlsx );
 $self = $wb->add_worksheet();
+$self->protect();
 # Add Page Styles of Invoice
 # Normal text size to left or center
 $left = $wb->add_format( 'align' => 'left','font' => 'Arial Bold','size' => 11, 'bold' => 1);
+$left->set_locked( 0 ); 
 $left_normal = $wb->add_format( 'align' => 'left','font' => 'Arial Bold','size' => 10);
 $roost = $wb->add_format( 'align' => 'center','font' =>  'Arial Bold','size' => 11, 'bold' => 1,'bg_color' => '#e3e3e3');
 $roost3 = $wb->add_format('bg_color' => '#666666');
@@ -496,6 +498,7 @@ $roost2 = $wb->add_format( 'align' => 'left','font' =>  'Arial Bold','size' => 1
 $right = $wb->add_format( 'align' => 'right','font' =>  'Arial Bold','size' => 11, 'bold' => 1);
 # Big header text
 $head = $wb->add_format( 'align' => 'left','bold' => 1,'font' =>  'Arial Bold','size' => 18);
+$invoice = $wb->add_format( 'align' => 'left','bold' => 1,'font' =>  'Arial Bold','size' => 18);
 # Normal text to row top
 $client = $wb->add_format( 'align' => 'left','valign' => 'top', 'bold' => 1,'font' =>  'Arial Bold','size' => 11 );
 # Total text style to right
@@ -507,6 +510,7 @@ if($image){
   $self->merge_range( 'A1:E6', '', $left );
   $self->insert_image( 0,0,$image,2,8 );
 } else {  
+    $head->set_locked( 0 ); 
     $self->merge_range( 'A1:E3', '', $left );
    if($language eq 'en'){
       $self->write( 0, 0, "Company Ltd", $head );
@@ -518,14 +522,15 @@ if($image){
       $self->write( 3, 0, " Ollilanojantie 15", $left );
       $self->write( 5, 0, " 99100 Kittilä", $left );
    }
+$invoice->set_locked( 1 ); 
 $self->merge_range( 'A6:E6', '', $left );
 if($language eq 'en'){
-  $self->merge_range( 'F1:K2', '', $left );
-  $self->write( 0, 5, "Invoice", $head );
+  $self->merge_range( 'F1:K2', '', $invoice );
+  $self->write( 0, 5, "Invoice", $invoice );
 }
 if($language eq 'fi'){
-  $self->merge_range( 'F1:J2', '', $left );
-  $self->write( 0, 5, "LASKU", $head );
+  $self->merge_range( 'F1:J2', '', $invoice );
+  $self->write( 0, 5, "LASKU", $invoice );
 }
 }
 
@@ -562,19 +567,9 @@ $self->set_row( 56, 1, 0, 0, 0, 20 );
 $self->set_row( 58, 4, 0, 0, 0, 20 );
 $self->set_row( 60, 4, 0, 0, 0, 20 );
 
-$self->merge_range( 'A6:E6', '', $left );
-$self->merge_range( 'F1:J2', '', $left );
-if($language eq 'en'){
-  $self->write( 0, 5, "Invoice", $head );
-}
-if($language eq 'fi'){
-  $self->write( 0, 5, "LASKU", $head );
-}
-
 # Oikea ylärivi
 
-#  Oikea toinen rivi
-
+$left_normal->set_locked( 0 ); 
 
 if($language eq 'fi'){
     $self->merge_range( "F4:G4", '', $left );
@@ -652,6 +647,7 @@ if($language eq 'en'){
     $self->write( 'F16', " Client ID:", $left );
 }
 
+$client->set_locked( 0 ); 
 $self->merge_range( "A10:E10", '', $client );
 
 # Asikastiedot
@@ -804,6 +800,7 @@ $self->merge_range( 'H68:J68', '',$left_normal );
 $self->merge_range( 'H69:J69', '',$left_normal );
 
 my $right_small = $wb->add_format( 'align' => 'right','font' => 'Arial Bold','size' => 7.8);
+$right_small->set_locked( 1 );
 $self->merge_range( 'A70:J70', '', $right_small );
 
 if($language eq 'fi'){
