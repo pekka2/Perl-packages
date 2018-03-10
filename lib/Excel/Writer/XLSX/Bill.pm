@@ -670,12 +670,12 @@ $self->write( 'A14', " 123456 City", $left );
 
 $self->merge_range( "A16:J16", '', $left );
 
-$self->merge_range( 'A20:D20', '', $roost2 );
+
 if($language eq 'fi'){
-    $self->write( 'A20', " Selite", $roost2 );
+   $self->merge_range( 'A20:D20', ' Selite', $roost2 );
 }
 if($language eq 'en'){
-    $self->write( 'A20', " Title", $roost2 );
+   $self->merge_range( 'A20:D20', ' Title', $roost2 );
 }
 if($language eq 'fi'){
     $self->write( 'E20', " Määrä", $roost );
@@ -705,12 +705,11 @@ if($language eq 'en'){
     $self->write( 'H20', " VAT %", $roost );
 }
 
-$self->merge_range( 'I20:J20', '', $roost );
 if($language eq 'fi'){
-    $self->write( 'I20', "Verollinen hinta ", $roost );
+   $self->merge_range( 'I20:J20', 'Verollinen hinta', $roost );
 }
 if($language eq 'en'){
-    $self->write( 'I120', "Price with tax ", $roost );
+   $self->merge_range( 'I20:J20', 'Price with tax', $roost );
 }
 
 my $start = 21;
