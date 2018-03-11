@@ -1,4 +1,7 @@
 # Perl-packages
-This is few my did Perl package
+Here are a few mine done Perl packages:
+GD::FullRotate
+GD::Frame
+Excel::Writer::XSLX::Bill
 
 Welcomne
